@@ -13,3 +13,6 @@ hs_err_pid*
 
 #hidden files
 .*
+
+# Target folder
+target*
