@@ -37,5 +37,13 @@ public class TreeManagerTests {
 		assertEquals(root.getName(), "root");
 		assertEquals(root.getChildren().size(), 4);
 	}
+	
+	@Test
+	public void testGetByName() throws Exception {
+		Taxonomy[] tax = taxBo.findByName("ro");
+		assertNotNull(tax);
+		assertEquals(1, tax.length);
+		assertEquals("root", tax[0].getName());
+	}
 
 }

@@ -8,5 +8,5 @@ public interface TaxonomyBO {
 	void update(Taxonomy taxonomy);
 	void delete(Taxonomy taxonomy);
 	Taxonomy findByTaxId(int taxonomyId);
-
+	Taxonomy[] findByName(String name);
 }

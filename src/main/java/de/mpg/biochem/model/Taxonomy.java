@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="T_TAXONOMY")
+@Table(name="taxonomy")
 public class Taxonomy {
 
 	@Id
@@ -26,7 +26,7 @@ public class Taxonomy {
 	private int rp = 0;
 	
 	@ElementCollection(fetch=FetchType.EAGER)
-	@CollectionTable(name = "T_CHILDREN")
+	@CollectionTable(name = "children")
 	private List<Integer> children = new ArrayList<Integer>();
 	
 	public Taxonomy(){}

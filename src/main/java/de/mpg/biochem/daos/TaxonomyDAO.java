@@ -8,5 +8,6 @@ public interface TaxonomyDAO {
 	void update(Taxonomy taxonomy);
 	void delete(Taxonomy taxonomy);
 	Taxonomy findByTaxId(int taxonomyId);
+	Taxonomy[] findByName(String name);
 
 }
