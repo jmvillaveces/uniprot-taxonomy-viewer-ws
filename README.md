@@ -5,7 +5,7 @@ A simple web service to serve Uniprot taxonomy data. The service reads a plain f
 
 ## Methods
 
-Currently, the webservice provides two methods vía REST:
+Currently, the webservice provides two methods vía REST.
 
 ### Get Taxonomy By Id
 
@@ -21,6 +21,24 @@ Returns an array of taxonomies where the taxonomy name contains the given taxNam
 
 ```
 http://localhost:8080/taxonomy/getTaxonomyByName?taxName=Homo Sapiens
+```
+
+## Responce
+
+The service will always answer with a JSON list of taxonomies. A taxonomy in JSON is defined as follows:
+
+```javascript
+
+{
+  "taxId":207598,
+  "parentTaxId":9604,
+  "name":"Homininae",
+  "cp":4,
+  "rp":13,
+  "children":[9592,9606]
+}
+
+
 ```
 
 ## Taxonomy File Format
