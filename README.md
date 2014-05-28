@@ -28,7 +28,6 @@ http://localhost:8080/taxonomy/getTaxonomyByName?taxName=Homo Sapiens
 The service will always answer with a JSON list of taxonomies. A taxonomy in JSON is defined as follows:
 
 ```javascript
-
 {
   "taxId":207598,
   "parentTaxId":9604,
@@ -37,8 +36,6 @@ The service will always answer with a JSON list of taxonomies. A taxonomy in JSO
   "rp":13,
   "children":[9592,9606]
 }
-
-
 ```
 
 ## Taxonomy File Format
