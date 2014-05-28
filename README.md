@@ -38,9 +38,9 @@ The service will always answer with a JSON list of taxonomies. A taxonomy in JSO
 }
 ```
 
-## Taxonomy File Format
+## Taxonomy Input File Format
 
-In order for the webservice to work, it needs an input file defining the organisms and its attributes. The file is a tabulated text where columns are defined as follows:
+In order for the webservice to work, it needs an input file defining the taxonomies and its attributes. The file is a tabulated text file where columns are defined as follows:
 
 1. Taxonomy identifier for the parent organism
 2. Taxonomy identifier for the current taxonomy
@@ -58,3 +58,11 @@ Example:
 207598	9605	Homo  2
 9605	9606	Human 3 5
 ```
+
+## Running the code
+
+This proyect uses [Spring](https://spring.io) and [Spring Boot](http://projects.spring.io/spring-boot/). In order to run the code follow this steps:
+
+1. Clone the repository
+2. Open the console and navigate to the proyect location
+3. Run the Proyect by typing ```mvn spring-boot:run```
