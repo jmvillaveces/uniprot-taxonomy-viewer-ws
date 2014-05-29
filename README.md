@@ -44,7 +44,7 @@ In order for the webservice to work, it needs an input file defining the taxonom
 
 1. Taxonomy identifier for the parent organism
 2. Taxonomy identifier for the current taxonomy
-3. Taxonomy name
+3. Taxonomy scientific name
 4. Number of reference proteomes
 5. Number of complete proteomes
 
