@@ -23,7 +23,7 @@ Returns an array of taxonomies where the taxonomy name contains the given taxNam
 http://localhost:8080/taxonomy/getTaxonomyByName?taxName=Homo Sapiens
 ```
 
-## Responce
+## Response
 
 The service will always answer with a JSON list of taxonomies. A taxonomy in JSON is defined as follows:
 
