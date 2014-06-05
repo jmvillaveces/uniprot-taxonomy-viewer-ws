@@ -25,7 +25,7 @@
 	 
 	 <!-- Taxonomy Data Access Object -->
 	 <bean id="taxonomyMan" class="de.mpg.biochem.model.TreeManager">
-	 	<constructor-arg value="/StoogesTaxonomy.txt"/>
+	 	<constructor-arg value="/Taxonomy.txt"/>
 	 	<constructor-arg ref="taxonomyBo"/>
 	 </bean>
 

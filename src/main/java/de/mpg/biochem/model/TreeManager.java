@@ -9,6 +9,8 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import de.mpg.biochem.daos.TaxonomyBO;
 import de.mpg.biochem.util.Node;
 import de.mpg.biochem.util.Tree;
@@ -20,6 +22,7 @@ public class TreeManager {
 	private Tree<Taxonomy> taxonomy;
 	
 	private TaxonomyBO taxBo;
+	private Logger logger = Logger.getLogger(TreeManager.class);
 	
 	public TreeManager(String filePath, TaxonomyBO taxBo) {
 		this.filePath = filePath;
@@ -46,6 +49,8 @@ public class TreeManager {
 		
 		String sCurrentLine;
 		while ((sCurrentLine = br.readLine()) != null) {
+			logger.debug(sCurrentLine);
+			
 			Taxonomy tax = getTaxonomy(sCurrentLine.split("\t"));
 			
 			if(tax != null) { 
@@ -62,54 +67,60 @@ public class TreeManager {
 		}
 		br.close();
 		
-		calculateCP(root);
-		calculateRP(root);
+		calculateStuff(root);
 		
 		indexTree();
+		nodeMap.clear();
+		nodeMap = null;
 	}
 	
 	private void indexTree() {
 		for(Integer key : nodeMap.keySet())
 			taxBo.save((Taxonomy) nodeMap.get(key).getData());
 	}
-
-	private int calculateRP(Node<Taxonomy> node) {
-		if(node.getNumberOfChildren() == 0) {
-			return node.data.getRp();
-		}else{
-			
-			int rp = node.data.getRp();
-			for (Node<Taxonomy> data : node.getChildren())
-				rp += calculateRP(data);
-			
-			node.data.setRp(rp);
-			return rp;
-		}
-	}
 	
-	private int calculateCP(Node<Taxonomy> node) {
-		if(node.getNumberOfChildren() == 0) {
-			return node.data.getCp();
-		}else{
-			
-			int cp = node.data.getCp();
-			for (Node<Taxonomy> data : node.getChildren())
-				cp += calculateCP(data);
-			
-			node.data.setCp(cp);
-			return cp;
+	private int[] calculateStuff(Node<Taxonomy> node) {
+		
+		int[] tmp = new int[]{node.data.getCp(), node.data.getRp()};
+		
+		if(node.getNumberOfChildren() > 0) {
+			for(Node<Taxonomy> n : node.getChildren()) {
+				int[] aux = this.calculateStuff(n);
+				tmp[0] += aux[0];
+				tmp[1] += aux[1];
+			}
+			node.data.setCp(tmp[0]);
+			node.data.setRp(tmp[1]);
 		}
+		return tmp;
 	}
 	
 	private Taxonomy getTaxonomy(String[] line) {
 		Taxonomy tax = null;
 		
-		if(line.length > 2) {
+		if(line.length > 2 && !line[0].equals("")) {
 			tax = new Taxonomy(Integer.parseInt(line[1]), Integer.parseInt(line[0]), line[2]);
 			
-			if(line.length > 3) tax.setCp(Integer.parseInt(line[3]));
-			
-			if(line.length > 4) tax.setRp(Integer.parseInt(line[4]));
+			if(line.length > 3) {
+				String status = line[3];
+				
+				int val = 0;
+				
+				if(line.length > 4) {
+					try {
+						val = Integer.parseInt(line[4]);
+					}catch(Exception e) {
+						val = 0;
+					}
+				}
+				
+				
+				if(status.equalsIgnoreCase("cp")) {
+					tax.setCp(val);
+				}else if(status.equalsIgnoreCase("rp")) {
+					tax.setRp(val);
+				}
+			}
 		}
 		
 		return tax;

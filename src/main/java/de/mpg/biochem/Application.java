@@ -9,7 +9,7 @@ import org.springframework.context.annotation.ImportResource;
 @ComponentScan
 @EnableAutoConfiguration
 @Configuration
-@ImportResource("classpath:/META-INF/spring/app-context.xml")
+@ImportResource("classpath:META-INF/spring/app-context.xml")
 public class Application {
 	
     public static void main(String[] args) {

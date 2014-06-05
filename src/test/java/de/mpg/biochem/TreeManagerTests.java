@@ -20,7 +20,7 @@ public class TreeManagerTests {
 	@Autowired
 	private TaxonomyBO taxBo;
 	
-	private String filePath = "/StoogesTaxonomy.txt";
+	private String filePath = "/Taxonomy.txt";
 	
 	@Test
 	public void testStreamToString() {
@@ -35,15 +35,51 @@ public class TreeManagerTests {
 		Taxonomy root = taxBo.findByTaxId(1);
 		
 		assertEquals(root.getName(), "root");
-		assertEquals(root.getChildren().size(), 4);
+		assertEquals(root.getChildren().size(), 1);
 	}
 	
 	@Test
 	public void testGetByName() throws Exception {
+		
+		//Find root
 		Taxonomy[] tax = taxBo.findByName("ro");
 		assertNotNull(tax);
 		assertEquals(1, tax.length);
 		assertEquals("root", tax[0].getName());
+		
+		//Find 2 gorillas
+		tax = taxBo.findByName("gorilla");
+		assertNotNull(tax);
+		assertEquals(3, tax.length);
+		
+	}
+	
+	@Test
+	public void testCP() throws Exception {
+		
+		//Find root
+		Taxonomy root = taxBo.findByTaxId(1);
+		assertNotNull(root);
+		
+		//Test cp and rp
+		assertEquals(10, root.getCp());
+		assertEquals(4, root.getRp());
+		
+		//Find homo
+		Taxonomy homo = taxBo.findByTaxId(9605);
+		assertNotNull(homo);
+		
+		//Test cp and rp
+		assertEquals(0, homo.getCp());
+		assertEquals(2, homo.getRp());
+		
+		//Find homo
+		Taxonomy gorilla = taxBo.findByTaxId(9592);
+		assertNotNull(gorilla);
+				
+		//Test cp and rp
+		assertEquals(10, gorilla.getCp());
+		assertEquals(2, gorilla.getRp());
 	}
 
 }

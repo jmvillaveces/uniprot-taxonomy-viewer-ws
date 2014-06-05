@@ -86,7 +86,8 @@ public class Taxonomy {
 	}
 
 	@Override
-    public String toString() {
-        return "Taxonomy [taxId=" + taxId + ", name=" + name + ", parentTaxId=" + parentTaxId + ", cp=" + cp + ", rp=" + rp +"]";
-    }
+	public String toString() {
+		return "Taxonomy [taxId=" + taxId + ", parentTaxId=" + parentTaxId
+				+ ", name=" + name + ", cp=" + cp + ", rp=" + rp + ", children=" + children + "]";
+	}
 }
