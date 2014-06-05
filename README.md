@@ -45,18 +45,21 @@ In order for the webservice to work, it needs an input file defining the taxonom
 1. Taxonomy identifier for the parent organism
 2. Taxonomy identifier for the current taxonomy
 3. Taxonomy scientific name
-4. Number of reference proteomes
-5. Number of complete proteomes
+4. Status 
+  * cp = complete proteome
+  * rp = reference proteome
+  * - = no status available
+5. Number of proteomes, if status is nota available then it is the number of proteins
 
 Example:
 
 ```
-9604	207598	Homininae
+1	207598	Homininae
 207598	9592	Gorilla
-9592  499232  Gorilla beringei
-9592  9593  Gorilla gorilla 2 1
-207598	9605	Homo  2
-9605	9606	Human 3 5
+9592	499232	Gorilla beringei	cp	10
+9592	9593	Gorilla gorilla	rp	2
+207598	9605	Homo	-	2
+9605	9606	Human	rp	2
 ```
 
 ## Running the code
