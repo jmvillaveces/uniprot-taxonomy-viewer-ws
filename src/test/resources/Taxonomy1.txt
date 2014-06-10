@@ -1,6 +1,0 @@
-1	207598	Homininae
-207598	9592	Gorilla
-9592	499232	Gorilla beringei	cp	10
-9592	9593	Gorilla gorilla	rp	2
-207598	9605	Homo	-	2
-9605	9606	Human	rp	2

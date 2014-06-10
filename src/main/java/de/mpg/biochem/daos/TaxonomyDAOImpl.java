@@ -1,5 +1,6 @@
 package de.mpg.biochem.daos;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
@@ -28,6 +29,25 @@ public class TaxonomyDAOImpl implements TaxonomyDAO{
 		sessionFactory.getCurrentSession().delete(taxonomy);
 	}
 
+	@Transactional
+	public Taxonomy[] findByTaxIdWithGraphReduction(int taxonomyId) {
+		
+		Taxonomy tax = this.findByTaxId(taxonomyId);
+		List<Taxonomy> taxonomies = new ArrayList<Taxonomy>();
+		
+		// No children, return taxonomy
+		if(tax.getChildren().size() == 0) {
+			taxonomies.add(tax);
+		}else if(tax.getChildren().size() == 1) { // Recursive call in case only one child
+			return this.findByTaxIdWithGraphReduction(tax.getChildren().get(0));
+		}else {
+			for(int t : tax.getChildren()) {
+				taxonomies.add(this.findByTaxId(t));
+			}
+		}
+		return taxonomies.toArray(new Taxonomy[0]);
+	}
+	
 	@Transactional
 	public Taxonomy findByTaxId(int taxonomyId) {
 		return (Taxonomy) sessionFactory.getCurrentSession().get(Taxonomy.class, taxonomyId);

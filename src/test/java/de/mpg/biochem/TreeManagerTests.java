@@ -55,7 +55,7 @@ public class TreeManagerTests {
 	}
 	
 	@Test
-	public void testCP() throws Exception {
+	public void testCPAndRP() throws Exception {
 		
 		//Find root
 		Taxonomy root = taxBo.findByTaxId(1);
@@ -81,5 +81,30 @@ public class TreeManagerTests {
 		assertEquals(10, gorilla.getCp());
 		assertEquals(2, gorilla.getRp());
 	}
+	
+	@Test
+	public void testGraphReduction() throws Exception {
+		//Find Gorilla
+		Taxonomy[] taxos = taxBo.findByTaxIdWithGraphReduction(9592);
+		
+		//should return the two children
+		assertEquals(2, taxos.length);
+		
+		//Gorilla beringei
+		assertEquals(499232, taxos[0].getTaxId());
+		
+		//Gorilla gorilla
+		assertEquals(9593, taxos[1].getTaxId());
+		
+		//Find Homo
+		taxos = taxBo.findByTaxIdWithGraphReduction(9605);
+		
+		//should return human
+		assertEquals(1, taxos.length);
+		
+		//Human
+		assertEquals(9606, taxos[0].getTaxId());
+		
 
+	}
 }

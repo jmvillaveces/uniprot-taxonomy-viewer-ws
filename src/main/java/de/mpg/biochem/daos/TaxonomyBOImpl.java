@@ -21,6 +21,10 @@ public class TaxonomyBOImpl implements TaxonomyBO{
 	public Taxonomy findByTaxId(int taxonomyId) {
 		return taxDao.findByTaxId(taxonomyId);
 	}
+	
+	public Taxonomy[] findByTaxIdWithGraphReduction(int taxonomyId) {
+		return taxDao.findByTaxIdWithGraphReduction(taxonomyId);
+	}
 
 	public Taxonomy[] findByName(String name) {	
 		return taxDao.findByName(name);
@@ -29,5 +33,4 @@ public class TaxonomyBOImpl implements TaxonomyBO{
 	public void setTaxDao(TaxonomyDAO taxDao) {
 		this.taxDao = taxDao;
 	}
-
 }

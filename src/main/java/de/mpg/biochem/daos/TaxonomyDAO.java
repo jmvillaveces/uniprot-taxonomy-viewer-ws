@@ -9,5 +9,6 @@ public interface TaxonomyDAO {
 	void delete(Taxonomy taxonomy);
 	Taxonomy findByTaxId(int taxonomyId);
 	Taxonomy[] findByName(String name);
+	Taxonomy[] findByTaxIdWithGraphReduction(int taxonomyId);
 
 }

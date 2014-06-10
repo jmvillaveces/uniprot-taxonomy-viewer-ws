@@ -1,6 +1,7 @@
 package de.mpg.biochem.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +20,18 @@ public class TaxonomyController {
 	private TaxonomyBO taxBo;
 	
 	@RequestMapping("/taxonomy/getTaxonomyById")
-    public @ResponseBody List<Taxonomy> greeting( @RequestParam(value="taxId", required=true, defaultValue="1") int[] taxonomyId) {
-        
+    public @ResponseBody List<Taxonomy> greeting( @RequestParam(value="taxId", required=true, defaultValue="1") int[] taxonomyId,
+    											  @RequestParam(value="graphReduction", required=false, defaultValue="false") boolean graphReduction) {
+		
 		List<Taxonomy> taxonomies = new ArrayList<Taxonomy>();
-		for(int id : taxonomyId)
-			taxonomies.add(taxBo.findByTaxId(id));
+		for(int id : taxonomyId) {
+			
+			if(graphReduction) {
+				taxonomies.addAll(Arrays.asList(taxBo.findByTaxIdWithGraphReduction(id)));
+			}else {
+				taxonomies.add(taxBo.findByTaxId(id));
+			}
+		}
 		
 		return taxonomies;
 	}
