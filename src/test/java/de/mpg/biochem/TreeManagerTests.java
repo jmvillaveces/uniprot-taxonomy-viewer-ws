@@ -42,7 +42,7 @@ public class TreeManagerTests {
 	public void testGetByName() throws Exception {
 		
 		//Find root
-		Taxonomy[] tax = taxBo.findByName("ro");
+		Taxonomy[] tax = taxBo.findByName("root");
 		assertNotNull(tax);
 		assertEquals(1, tax.length);
 		assertEquals("root", tax[0].getName());
@@ -62,16 +62,16 @@ public class TreeManagerTests {
 		assertNotNull(root);
 		
 		//Test cp and rp
-		assertEquals(10, root.getCp());
-		assertEquals(4, root.getRp());
+		assertEquals(16, root.getCp());
+		assertEquals(6, root.getRp());
 		
 		//Find homo
 		Taxonomy homo = taxBo.findByTaxId(9605);
 		assertNotNull(homo);
 		
 		//Test cp and rp
-		assertEquals(0, homo.getCp());
-		assertEquals(2, homo.getRp());
+		assertEquals(4, homo.getCp());
+		assertEquals(3, homo.getRp());
 		
 		//Find homo
 		Taxonomy gorilla = taxBo.findByTaxId(9592);
@@ -99,11 +99,14 @@ public class TreeManagerTests {
 		//Find Homo
 		taxos = taxBo.findByTaxIdWithGraphReduction(9605);
 		
-		//should return human
-		assertEquals(1, taxos.length);
+		//should return H.Sapiens & H. heidelbergensis
+		assertEquals(2, taxos.length);
 		
-		//Human
-		assertEquals(9606, taxos[0].getTaxId());
+		//H. heidelbergensis
+		assertEquals(1425170, taxos[0].getTaxId());
+		
+		//H.Sapiens
+		assertEquals(9606, taxos[1].getTaxId());
 		
 
 	}
