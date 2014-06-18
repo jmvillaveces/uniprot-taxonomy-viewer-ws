@@ -81,8 +81,8 @@ Example:
 
 ## Running the code
 
-This proyect uses [Spring](https://spring.io) and [Spring Boot](http://projects.spring.io/spring-boot/). In order to run the code follow this steps:
+This project uses [Spring](https://spring.io) and [Spring Boot](http://projects.spring.io/spring-boot/). In order to run the code follow this steps:
 
 1. Clone the repository
-2. Open the console and navigate to the proyect location
+2. Open the console and navigate to the project location
 3. Run the Proyect by typing ```mvn spring-boot:run```
