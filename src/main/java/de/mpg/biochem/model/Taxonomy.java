@@ -10,8 +10,8 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
-@Table(name="taxonomy")
+@Entity // An element that needs to persist
+@Table(name="taxonomy")// Maps to the table taxonomy
 public class Taxonomy {
 
 	@Id
@@ -25,7 +25,7 @@ public class Taxonomy {
 	
 	private int rp = 0;
 	
-	@ElementCollection(fetch=FetchType.EAGER)
+	@ElementCollection(fetch=FetchType.EAGER) // Manages a many to many relationship
 	@CollectionTable(name = "children")
 	private List<Integer> children = new ArrayList<Integer>();
 	

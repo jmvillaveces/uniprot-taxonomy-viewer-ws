@@ -34,6 +34,9 @@ public class TreeManager {
 		}
 	}
 	
+	/*
+	 * Creates the tree
+	 */
 	private void createTree() throws IOException, URISyntaxException {
 		
 		URL resource = getClass().getResource(filePath);
@@ -67,25 +70,31 @@ public class TreeManager {
 		}
 		br.close();
 		
-		calculateStuff(root);
+		calculateCPRP(root);
 		
 		indexTree();
 		nodeMap.clear();
 		nodeMap = null;
 	}
 	
+	/*
+	 * Indexes the tree
+	 */
 	private void indexTree() {
 		for(Integer key : nodeMap.keySet())
 			taxBo.save((Taxonomy) nodeMap.get(key).getData());
 	}
 	
-	private int[] calculateStuff(Node<Taxonomy> node) {
+	/*
+	 * Recursively calculates cp and rp values for each taxa
+	 */
+	private int[] calculateCPRP(Node<Taxonomy> node) {
 		
 		int[] tmp = new int[]{node.data.getCp(), node.data.getRp()};
 		
 		if(node.getNumberOfChildren() > 0) {
 			for(Node<Taxonomy> n : node.getChildren()) {
-				int[] aux = this.calculateStuff(n);
+				int[] aux = this.calculateCPRP(n);
 				tmp[0] += aux[0];
 				tmp[1] += aux[1];
 			}
@@ -95,6 +104,9 @@ public class TreeManager {
 		return tmp;
 	}
 	
+	/*
+	 * Creates a taxonomy based on a file line
+	 */
 	private Taxonomy getTaxonomy(String[] line) {
 		Taxonomy tax = null;
 		

@@ -19,8 +19,9 @@ public class TaxonomyController {
 	@Autowired
 	private TaxonomyBO taxBo;
 	
+	
 	@RequestMapping("/taxonomy/getTaxonomyById")
-    public @ResponseBody List<Taxonomy> greeting( @RequestParam(value="taxId", required=true, defaultValue="1") int[] taxonomyId,
+    public @ResponseBody Taxonomy[] getTaxonomyById( @RequestParam(value="taxId", required=true, defaultValue="1") int[] taxonomyId,
     											  @RequestParam(value="graphReduction", required=false, defaultValue="false") boolean graphReduction) {
 		
 		List<Taxonomy> taxonomies = new ArrayList<Taxonomy>();
@@ -33,11 +34,11 @@ public class TaxonomyController {
 			}
 		}
 		
-		return taxonomies;
+		return taxonomies.toArray(new Taxonomy[0]);
 	}
 	
 	@RequestMapping("/taxonomy/getTaxonomyByName")
-    public @ResponseBody Taxonomy[] greeting( @RequestParam(value="taxName", required=true) String taxonomyName) {	
+    public @ResponseBody Taxonomy[] getTaxonomyByName( @RequestParam(value="taxName", required=true) String taxonomyName) {	
 		return taxBo.findByName(taxonomyName);
 	}
 }

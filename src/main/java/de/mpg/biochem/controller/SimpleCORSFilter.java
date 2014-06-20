@@ -9,15 +9,21 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
 
+/**
+ * This class filters each call to the web service, and sets the required headers to allow Cross-origin resource sharing (CORS)
+ * 
+ * @author jvillaveces
+ *
+ */
 @Component
 public class SimpleCORSFilter implements Filter {
 
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
 		HttpServletResponse response = (HttpServletResponse) res;
-		response.setHeader("Access-Control-Allow-Origin", "*");
-		response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
-		response.setHeader("Access-Control-Max-Age", "3600");
-		response.setHeader("Access-Control-Allow-Headers", "x-requested-with");
+		response.setHeader("Access-Control-Allow-Origin", "*"); // allow all URIs to access the resource
+		response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE"); // Allow all methods
+		response.setHeader("Access-Control-Max-Age", "3600"); // indicates how long the results of a preflight request can be cached
+		response.setHeader("Access-Control-Allow-Headers", "x-requested-with");// enables the usage of x-requested-with header when making a request.
 		chain.doFilter(req, res);
 	}
 

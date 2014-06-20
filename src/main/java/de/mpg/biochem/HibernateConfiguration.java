@@ -13,6 +13,13 @@ import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 
 import de.mpg.biochem.model.Taxonomy;
 
+
+/**
+ * This class sets properties for the hibernate database
+ * 
+ * @author jvillaveces
+ *
+ */
 @Configuration
 public class HibernateConfiguration {
 
@@ -37,5 +44,4 @@ public class HibernateConfiguration {
 	public HibernateTransactionManager transactionManager() {
 		return new HibernateTransactionManager( sessionFactoryBean().getObject() );
 	}
-
 }
