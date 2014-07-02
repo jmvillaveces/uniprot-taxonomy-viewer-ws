@@ -14,18 +14,16 @@ import javax.persistence.Table;
 @Table(name="taxonomy")// Maps to the table taxonomy
 public class Taxonomy {
 
-	@Id
+	@Id //Primary Key
 	private int taxId;
-
+	
 	private int parentTaxId;
+	private int val;
 
 	private String name;
+	private String category;
 	
-	private int cp = 0;
-	
-	private int rp = 0;
-	
-	@ElementCollection(fetch=FetchType.EAGER) // Manages a many to many relationship
+	@ElementCollection(fetch=FetchType.EAGER) // Manages a one to many relationship between a taxa and its children
 	@CollectionTable(name = "children")
 	private List<Integer> children = new ArrayList<Integer>();
 	
@@ -35,6 +33,25 @@ public class Taxonomy {
 		this.taxId = taxId;
 		this.parentTaxId = parentTaxId;
 		this.name = name;
+		this.category = "-";
+		this.val = 0;
+	}
+	
+	public Taxonomy(int taxId, int parentTaxId, int val, String name, String category) {
+		this.taxId = taxId;
+		this.parentTaxId = parentTaxId;
+		this.val = val;
+		this.name = name;
+		this.category = category;
+	}
+	
+	public Taxonomy(int taxId, int parentTaxId, int val, String name, String category, List<Integer> children) {
+		this.taxId = taxId;
+		this.parentTaxId = parentTaxId;
+		this.val = val;
+		this.name = name;
+		this.category = category;
+		this.children = children;
 	}
 
 	public int getTaxId() {
@@ -53,6 +70,14 @@ public class Taxonomy {
 		this.parentTaxId = parentTaxId;
 	}
 
+	public int getVal() {
+		return val;
+	}
+
+	public void setVal(int val) {
+		this.val = val;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -60,21 +85,13 @@ public class Taxonomy {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	public int getCp() {
-		return cp;
+
+	public String getCategory() {
+		return category;
 	}
 
-	public void setCp(int cp) {
-		this.cp = cp;
-	}
-
-	public int getRp() {
-		return rp;
-	}
-
-	public void setRp(int rp) {
-		this.rp = rp;
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
 	public List<Integer> getChildren() {
@@ -88,6 +105,6 @@ public class Taxonomy {
 	@Override
 	public String toString() {
 		return "Taxonomy [taxId=" + taxId + ", parentTaxId=" + parentTaxId
-				+ ", name=" + name + ", cp=" + cp + ", rp=" + rp + ", children=" + children + "]";
+				+ ", name=" + name + ", category=" + category  + ", val="+ val + ", children=" + children + "]";
 	}
 }

@@ -10,4 +10,5 @@ public interface TaxonomyBO {
 	Taxonomy findByTaxId(int taxonomyId);
 	Taxonomy[] findByTaxIdWithGraphReduction(int taxonomyId);
 	Taxonomy[] findByName(String name);
+	Taxonomy[] getTaxonomyTree(int taxonomyId);
 }

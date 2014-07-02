@@ -20,6 +20,9 @@ public class TreeManagerTests {
 	@Autowired
 	private TaxonomyBO taxBo;
 	
+	@Autowired
+	private TreeManager man;
+	
 	private String filePath = "/Taxonomy.txt";
 	
 	@Test
@@ -29,8 +32,6 @@ public class TreeManagerTests {
 	
 	@Test
 	public void testTreeIndex() throws Exception {
-		
-		TreeManager man = new TreeManager(filePath, taxBo);
 		
 		Taxonomy root = taxBo.findByTaxId(1);
 		
@@ -55,31 +56,12 @@ public class TreeManagerTests {
 	}
 	
 	@Test
-	public void testCPAndRP() throws Exception {
-		
-		//Find root
-		Taxonomy root = taxBo.findByTaxId(1);
-		assertNotNull(root);
-		
-		//Test cp and rp
-		assertEquals(16, root.getCp());
-		assertEquals(6, root.getRp());
-		
-		//Find homo
-		Taxonomy homo = taxBo.findByTaxId(9605);
-		assertNotNull(homo);
-		
-		//Test cp and rp
-		assertEquals(4, homo.getCp());
-		assertEquals(3, homo.getRp());
-		
-		//Find homo
-		Taxonomy gorilla = taxBo.findByTaxId(9592);
-		assertNotNull(gorilla);
-				
-		//Test cp and rp
-		assertEquals(10, gorilla.getCp());
-		assertEquals(2, gorilla.getRp());
+	public void testSoftReduction() throws Exception{
+		//Find all fakes
+		Taxonomy[] tax = taxBo.findByName("fake");
+		assertNotNull(tax);
+		//the should't be any hits
+		assertEquals(0, tax.length);
 	}
 	
 	@Test
@@ -91,10 +73,10 @@ public class TreeManagerTests {
 		assertEquals(2, taxos.length);
 		
 		//Gorilla beringei
-		assertEquals(499232, taxos[0].getTaxId());
+		assertEquals(499232, taxos[1].getTaxId());
 		
 		//Gorilla gorilla
-		assertEquals(9593, taxos[1].getTaxId());
+		assertEquals(9593, taxos[0].getTaxId());
 		
 		//Find Homo
 		taxos = taxBo.findByTaxIdWithGraphReduction(9605);
@@ -103,11 +85,10 @@ public class TreeManagerTests {
 		assertEquals(2, taxos.length);
 		
 		//H. heidelbergensis
-		assertEquals(1425170, taxos[0].getTaxId());
+		assertEquals(1425170, taxos[1].getTaxId());
 		
 		//H.Sapiens
-		assertEquals(9606, taxos[1].getTaxId());
+		assertEquals(9606, taxos[0].getTaxId());
 		
-
 	}
 }

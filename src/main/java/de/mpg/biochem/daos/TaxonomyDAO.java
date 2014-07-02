@@ -10,5 +10,4 @@ public interface TaxonomyDAO {
 	Taxonomy findByTaxId(int taxonomyId);
 	Taxonomy[] findByName(String name);
 	Taxonomy[] findByTaxIdWithGraphReduction(int taxonomyId);
-
 }

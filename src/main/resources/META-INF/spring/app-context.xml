@@ -28,6 +28,4 @@
 	 	<constructor-arg value="/Taxonomy.txt"/>
 	 	<constructor-arg ref="taxonomyBo"/>
 	 </bean>
-
-
 </beans>
