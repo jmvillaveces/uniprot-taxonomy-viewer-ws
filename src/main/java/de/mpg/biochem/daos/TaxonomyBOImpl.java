@@ -42,7 +42,6 @@ public class TaxonomyBOImpl implements TaxonomyBO{
 		List<Taxonomy> taxonomies = new ArrayList<Taxonomy>(); 
 		
 		Taxonomy tax = findByTaxId(taxonomyId);
-		
 		if(tax != null) {
 			taxonomies.add(tax);
 			getTaxonomyTree(tax, taxonomies);

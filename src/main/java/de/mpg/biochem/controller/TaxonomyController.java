@@ -2,6 +2,7 @@ package de.mpg.biochem.controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,8 @@ public class TaxonomyController {
 			if(graphReduction) {
 				taxonomies.addAll(Arrays.asList(taxBo.findByTaxIdWithGraphReduction(id)));
 			}else {
-				taxonomies.add(taxBo.findByTaxId(id));
+				Taxonomy tax = taxBo.findByTaxId(id);
+				if(tax != null) taxonomies.add(tax);
 			}
 		}
 		

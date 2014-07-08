@@ -3,6 +3,12 @@ package de.mpg.biochem;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
+
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +29,16 @@ public class TreeManagerTests {
 	@Autowired
 	private TreeManager man;
 	
-	private String filePath = "/Taxonomy.txt";
+	private String filePath = "src/test/resources/Taxonomy.txt";
 	
 	@Test
-	public void testStreamToString() {
-	   assertNotNull("Test file missing", getClass().getResource(filePath));
+	public void initialize() throws IOException, URISyntaxException {
+		File f = new File(filePath);
+		assertEquals(true, f.exists());
+		assertEquals(false, f.isDirectory());
+		
+		man.setFilePath(filePath);
+		man.createTree();
 	}
 	
 	@Test
@@ -48,47 +59,33 @@ public class TreeManagerTests {
 		assertEquals(1, tax.length);
 		assertEquals("root", tax[0].getName());
 		
-		//Find 2 gorillas
+		//Find 0 gorillas
 		tax = taxBo.findByName("gorilla");
 		assertNotNull(tax);
-		assertEquals(3, tax.length);
+		assertEquals(0, tax.length);
 		
 	}
 	
 	@Test
 	public void testSoftReduction() throws Exception{
-		//Find all fakes
-		Taxonomy[] tax = taxBo.findByName("fake");
+		//Find all Gorillas
+		Taxonomy[] tax = taxBo.findByName("gorilla");
 		assertNotNull(tax);
-		//the should't be any hits
+		//the should't be any gorillas
 		assertEquals(0, tax.length);
 	}
 	
 	@Test
 	public void testGraphReduction() throws Exception {
-		//Find Gorilla
-		Taxonomy[] taxos = taxBo.findByTaxIdWithGraphReduction(9592);
-		
-		//should return the two children
-		assertEquals(2, taxos.length);
-		
-		//Gorilla beringei
-		assertEquals(499232, taxos[1].getTaxId());
-		
-		//Gorilla gorilla
-		assertEquals(9593, taxos[0].getTaxId());
-		
+
 		//Find Homo
-		taxos = taxBo.findByTaxIdWithGraphReduction(9605);
+		Taxonomy[] taxa = taxBo.findByTaxIdWithGraphReduction(9605);
 		
-		//should return H.Sapiens & H. heidelbergensis
-		assertEquals(2, taxos.length);
-		
-		//H. heidelbergensis
-		assertEquals(1425170, taxos[1].getTaxId());
+		//should return H.Sapiens
+		assertEquals(1, taxa.length);
 		
 		//H.Sapiens
-		assertEquals(9606, taxos[0].getTaxId());
+		assertEquals(9606, taxa[0].getTaxId());
 		
 	}
 }

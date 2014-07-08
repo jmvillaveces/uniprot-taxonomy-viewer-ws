@@ -34,7 +34,6 @@ public class TreeManager {
 		
 		logger.info("Opening resource in "+filePath);
 		
-		//URL resource = getClass().getResource(filePath);
 		BufferedReader br = new BufferedReader(new FileReader(new File(filePath)));
 
 		nodeMap = new TreeMap<Integer, Taxonomy>();
@@ -67,7 +66,7 @@ public class TreeManager {
 		softReduction(nodeMap.get(1));
 		
 		logger.info(nodeMap.size()+" nodes after soft reduction");
-		
+
 		indexTree();
 		nodeMap.clear();
 		nodeMap = null;
@@ -77,7 +76,7 @@ public class TreeManager {
 	
 	private boolean softReduction(Taxonomy tax) {
 		
-		boolean rm = (tax.getChildren().size() > 0 || tax.getCategory().equals("-")) ? true : false;
+		boolean rm = (tax.getCategory().equals("-")) ? true : false;
 		Iterator<Integer> i = tax.getChildren().iterator();
 		while(i.hasNext()) {
 			int id = i.next();
