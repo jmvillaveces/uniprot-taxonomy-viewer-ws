@@ -14,16 +14,11 @@ Returns an array of taxonomies with the defined ids.
 #### Parameters 
 
 1. taxId : a list of taxonomy ids.
-2. graphReduction : performs graph reduction by avoiding single nodes. By default it is turned to false;
 
 #### Examples
 
 ```
-http://localhost:8080/taxonomy/getTaxonomyById?taxId=9606,2
-```
-
-```
-http://localhost:8080/taxonomy/getTaxonomyById?taxId=9606,2&graphReduction=true
+http://localhost:8080/taxa/9606,2
 ```
 
 ### Get Taxonomy By Name
@@ -37,7 +32,7 @@ Returns an array of taxonomies where the taxonomy name contains the given taxNam
 #### Examples
 
 ```
-http://localhost:8080/taxonomy/getTaxonomyByName?taxName=Homo Sapiens
+http://localhost:8080/taxa/gorilla
 ```
 
 ## Response
@@ -48,10 +43,10 @@ The service will always answer with a JSON list of taxonomies. A taxonomy in JSO
 {
   "taxId":207598,
   "parentTaxId":9604,
+  "val":0,
   "name":"Homininae",
-  "cp":4,
-  "rp":13,
-  "children":[9592,9606]
+  "category":"-",
+  "children":[9592,9596,9605]
 }
 ```
 
