@@ -35,6 +35,22 @@ Returns an array of taxonomies where the taxonomy name contains the given taxNam
 http://localhost:8080/taxa/gorilla
 ```
 
+### Get Taxonomy Tree
+
+Recursively builds an array of taxonomies by taking as an input the given taxonomy id.
+
+#### Parameters 
+
+1. taxId : the taxonomy id.
+
+#### Examples
+
+```
+http://localhost:8080/taxa/9606/tree
+http://localhost:8080/taxa/207598/tree
+http://localhost:8080/taxa/9604/tree
+```
+
 ## Response
 
 The service will always answer with a JSON list of taxonomies. A taxonomy in JSON is defined as follows:
