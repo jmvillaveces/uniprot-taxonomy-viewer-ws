@@ -7,8 +7,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
